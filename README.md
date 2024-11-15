@@ -25,11 +25,35 @@ El Chart **my-app** utiliza Helm para simplificar la gestión y despliegue de ap
 
 ## Estructura del Chart
 
-perl
+```plaintext
+my-app/
+├── Chart.yaml
+├── values.yaml
+├── charts/
+│   ├── frontend/
+│   │   ├── Chart.yaml
+│   │   ├── values.yaml
+│   │   └── templates/
+│   │       ├── deployment.yaml
+│   │       ├── service.yaml
+│   │       └── _helpers.tpl
+│   ├── backend/
+│   │   ├── Chart.yaml
+│   │   ├── values.yaml
+│   │   └── templates/
+│   │       ├── deployment.yaml
+│   │       ├── service.yaml
+│   │       └── _helpers.tpl
+│   └── database/
+│       ├── Chart.yaml
+│       ├── values.yaml
+│       └── templates/
+│           ├── deployment.yaml
+│           ├── service.yaml
+│           ├── persistentvolumeclaim.yaml
+│           └── _helpers.tpl
 
-Copiar código
-
-`my-app/ ├── Chart.yaml ├── values.yaml ├── charts/ │   ├── frontend/ │   │   ├── Chart.yaml │   │   ├── values.yaml │   │   └── templates/ │   │       ├── deployment.yaml │   │       ├── service.yaml │   │       └── _helpers.tpl │   ├── backend/ │   │   ├── Chart.yaml │   │   ├── values.yaml │   │   └── templates/ │   │       ├── deployment.yaml │   │       ├── service.yaml │   │       └── _helpers.tpl │   └── database/ │       ├── Chart.yaml │       ├── values.yaml │       └── templates/ │           ├── deployment.yaml │           ├── service.yaml │           ├── persistentvolumeclaim.yaml │           └── _helpers.tpl`
+```
 
 ## Requisitos Previos
 
@@ -81,11 +105,29 @@ El Chart es altamente configurable a través del archivo `values.yaml`. A contin
 
 Puedes personalizar los valores creando un archivo `my-values.yaml` y sobrescribiendo los valores predeterminados:
 
-yaml
+```yaml
+frontend:
+  replicaCount: 3
+  image:
+    repository: tu-repositorio/frontend
+    tag: "v2.0.0"
 
-Copiar código
+backend:
+  replicaCount: 2
+  image:
+    repository: tu-repositorio/backend
+    tag: "v2.0.0"
 
-`frontend:  replicaCount: 3  image:    repository: tu-repositorio/frontend    tag: "v2.0.0" backend:  replicaCount: 2  image:    repository: tu-repositorio/backend    tag: "v2.0.0" database:  image:    repository: postgres    tag: "13"  persistentVolumeClaim:    resources:      requests:        storage: 5Gi`
+database:
+  image:
+    repository: postgres
+    tag: "13"
+  persistentVolumeClaim:
+    resources:
+      requests:
+        storage: 5Gi
+
+```
 
 Luego, instala el Chart usando tu archivo de valores personalizado:
 

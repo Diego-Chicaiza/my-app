@@ -1,0 +1,14 @@
+replicaCount: 1
+image:
+  repository: my-database-image
+  tag: "latest"
+  pullPolicy: IfNotPresent
+service:
+  type: ClusterIP
+  port: 5432
+persistentVolumeClaim:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi

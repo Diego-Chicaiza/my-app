@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: database  # Nombre del servicio
+spec:
+  type: {{ .Values.service.type }}  # Tipo de servicio (ClusterIP, NodePort, etc.), definido en values.yaml
+  ports:
+    - port: {{ .Values.service.port }}  # Puerto en el que el servicio estará disponible, obtenido de values.yaml
+  selector:
+    app: database  # Selector que coincide con la etiqueta 'app' de los pods para dirigir el tráfico al componente adecuado
